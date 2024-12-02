@@ -6,6 +6,7 @@ namespace Api\Routes;
 use Database\Interfaces\DatabaseConnectionInterface;
 use Api\Controllers\CategoryController;
 use Api\Controllers\CourseController;
+use Api\Controllers\DatabaseController;
 use Api\Utils\Request;
 class ApiRoutes
 {
@@ -27,6 +28,7 @@ class ApiRoutes
         $requestMethod = $request->getMethod();
 
         // Instantiate controllers with database connection
+
         $categoryController = new CategoryController($this->dbConnection);
         $courseController = new CourseController($this->dbConnection);
         // Handle routes
@@ -42,7 +44,7 @@ class ApiRoutes
 
                 }
                 break;
-                case (preg_match('/^courses\?category_id=[a-zA-Z0-9-]+$/', $requestUri) && isset($_GET['category_id'])):
+            case (preg_match('/^courses\?category_id=[a-zA-Z0-9-]+$/', $requestUri) && isset($_GET['category_id'])):
 
                 if ($requestMethod == 'GET') {
                     // Parse query parameters to get category_id
@@ -84,7 +86,12 @@ class ApiRoutes
                     $categoryController->getCategoriesWithHierarchy();
                 }
                 break;
+            case 'migrate--seed':
+                if ($requestMethod == 'GET') {
+                    $databaseController = new DatabaseController($this->dbConnection);
 
+                }
+                break;
             default:
 
                 http_response_code(404);

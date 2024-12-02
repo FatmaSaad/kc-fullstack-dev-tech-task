@@ -50,7 +50,9 @@ services:
              apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev &&
              docker-php-ext-configure gd --with-freetype --with-jpeg &&
              docker-php-ext-install gd mysqli pdo pdo_mysql &&
-             apache2-foreground"
+             apache2-foreground &&
+             a2enmod rewrite &&
+             systemctl restart apache2"
   front:
     image: php:8.3-apache
     container_name: front

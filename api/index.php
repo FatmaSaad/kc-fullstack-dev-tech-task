@@ -19,7 +19,7 @@ use Api\Routes\ApiRoutes;
 
 // Load the .env file
 
-$dotenv = Dotenv::createImmutable(__DIR__. '/../');
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
 
 // Access the variables
@@ -29,7 +29,7 @@ $user = $_ENV['DB_USER'];
 $password = $_ENV['DB_PASSWORD'];
 
 // Create a MySQLConnection instance
-$mysqlConnection = new MySQLConnection($host,  $dataBaseName  , $user ,    $password);
+$mysqlConnection = new MySQLConnection($host, $dataBaseName, $user, $password);
 
 // Inject it into the DatabaseService
 $databaseService = new DatabaseService($mysqlConnection);
@@ -40,7 +40,11 @@ $databaseService->connectToDatabase();
 
 // Perform some database operations...
 
-
+/** 
+ * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Important Notice:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ * "Please uncomment this section if the database structure does not exist
+ * or if you are ready to fill it with data."
+ */
 // // Create a MigrationRunner instance
 // $migrationRunner = new MigrationRunner($mysqlConnection);
 
